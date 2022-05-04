@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { BackButton } from "../BackButton";
 import { CloseButton } from "../CloseButton";
@@ -14,6 +14,8 @@ export const FeedbackContentStep: React.FC<Props> = ({
   feedbackType,
   onResetFeedbackType,
 }: Props) => {
+  const [screenshot, setScreenshot] = useState<string | null>(null);
+
   const feedbackTypeData = feedbackTypes[feedbackType];
 
   return (
@@ -40,7 +42,10 @@ export const FeedbackContentStep: React.FC<Props> = ({
         />
 
         <footer className="flex gap-2 mt-2">
-          <ScreenshotButton />
+          <ScreenshotButton
+            screenshot={screenshot}
+            onTakeScreenshot={setScreenshot}
+          />
 
           <button
             type="submit"
