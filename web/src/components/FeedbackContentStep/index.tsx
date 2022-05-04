@@ -38,7 +38,12 @@ export const FeedbackContentStep: React.FC<Props> = ({
         <CloseButton />
       </header>
 
-      <div className="flex py-8 gap-2 w-full" />
+      <form className="my-4 w-full">
+        <textarea
+          placeholder={feedbackTypeData.placeholder}
+          className="min-w-[314px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 border-zinc-600 bg-transparent rounded-md scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none resize-none"
+        />
+      </form>
     </>
   );
 };

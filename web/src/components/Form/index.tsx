@@ -13,6 +13,8 @@ export const feedbackTypes = {
       src: bugImage,
       alt: "Image of a bug",
     },
+    placeholder:
+      "Is something not working properly? We want to fix it. Tell us in detail what's going on.",
   },
   idea: {
     title: "Idea",
@@ -20,6 +22,7 @@ export const feedbackTypes = {
       src: ideaImage,
       alt: "Image of a lighted lamp",
     },
+    placeholder: "Got an idea for improvement or a new feature? Tell us!",
   },
   thought: {
     title: "Thought",
@@ -27,6 +30,7 @@ export const feedbackTypes = {
       src: thoughtImage,
       alt: "Image of a thought cloud",
     },
+    placeholder: "We want to hear from you. What would you like to tell us?",
   },
 };
 
