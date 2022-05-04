@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import bugImage from "../../assets/bug.svg";
 import ideaImage from "../../assets/idea.svg";
 import thoughtImage from "../../assets/thought.svg";
+import { FeedbackContentStep } from "../FeedbackContentStep";
 import { FeedbackTypeStep } from "../FeedbackTypeStep";
 
 export const feedbackTypes = {
@@ -31,15 +32,15 @@ export const feedbackTypes = {
 
 export type FeedbackType = keyof typeof feedbackTypes;
 
-const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
-
 export const Form: React.FC = () => {
+  const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
+
   return (
     <div className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
       {!feedbackType ? (
         <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType} />
       ) : (
-        <p>{feedbackType}</p>
+        <FeedbackContentStep feedbackType={feedbackType} />
       )}
 
       <footer className="text-xs text-neutral-400">
