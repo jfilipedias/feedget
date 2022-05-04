@@ -35,12 +35,19 @@ export type FeedbackType = keyof typeof feedbackTypes;
 export const Form: React.FC = () => {
   const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
 
+  const onResetFeedbackType = () => {
+    setFeedbackType(null);
+  };
+
   return (
     <div className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
       {!feedbackType ? (
         <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType} />
       ) : (
-        <FeedbackContentStep feedbackType={feedbackType} />
+        <FeedbackContentStep
+          feedbackType={feedbackType}
+          onResetFeedbackType={onResetFeedbackType}
+        />
       )}
 
       <footer className="text-xs text-neutral-400">
