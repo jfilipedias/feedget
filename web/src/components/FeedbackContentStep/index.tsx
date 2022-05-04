@@ -8,11 +8,13 @@ import { ScreenshotButton } from "../ScreenshotButton";
 interface Props {
   feedbackType: FeedbackType;
   onResetFeedbackType: () => void;
+  onSubmitFeedback: () => void;
 }
 
 export const FeedbackContentStep: React.FC<Props> = ({
   feedbackType,
   onResetFeedbackType,
+  onSubmitFeedback,
 }: Props) => {
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState("");
@@ -22,6 +24,7 @@ export const FeedbackContentStep: React.FC<Props> = ({
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     console.log("submit", { feedbackType, comment, screenshot });
+    onSubmitFeedback();
   };
 
   return (

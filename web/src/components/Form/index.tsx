@@ -4,6 +4,7 @@ import bugImage from "../../assets/bug.svg";
 import ideaImage from "../../assets/idea.svg";
 import thoughtImage from "../../assets/thought.svg";
 import { FeedbackContentStep } from "../FeedbackContentStep";
+import { FeedbackSuccessStep } from "../FeedbackSuccessStep";
 import { FeedbackTypeStep } from "../FeedbackTypeStep";
 
 export const feedbackTypes = {
@@ -38,20 +39,30 @@ export type FeedbackType = keyof typeof feedbackTypes;
 
 export const Form: React.FC = () => {
   const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
+  const [isFeedbackSubmitted, setIsFeedbackSubmitted] = useState(false);
 
   const onResetFeedbackType = () => {
+    setIsFeedbackSubmitted(false);
     setFeedbackType(null);
   };
 
   return (
     <div className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
-      {!feedbackType ? (
-        <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType} />
+      {isFeedbackSubmitted ? (
+        <FeedbackSuccessStep onResetFeedbackType={onResetFeedbackType} />
       ) : (
-        <FeedbackContentStep
-          feedbackType={feedbackType}
-          onResetFeedbackType={onResetFeedbackType}
-        />
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        <>
+          {!feedbackType ? (
+            <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType} />
+          ) : (
+            <FeedbackContentStep
+              feedbackType={feedbackType}
+              onResetFeedbackType={onResetFeedbackType}
+              onSubmitFeedback={() => setIsFeedbackSubmitted(true)}
+            />
+          )}
+        </>
       )}
 
       <footer className="text-xs text-neutral-400">
