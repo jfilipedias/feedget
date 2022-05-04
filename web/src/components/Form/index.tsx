@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
-import bugImage from "../../assets/images/bug.svg";
-import ideaImage from "../../assets/images/idea.svg";
-import thoughtImage from "../../assets/images/thought.svg";
-import { CloseButton } from "../CloseButton";
+import bugImage from "../../assets/bug.svg";
+import ideaImage from "../../assets/idea.svg";
+import thoughtImage from "../../assets/thought.svg";
+import { FeedbackTypeStep } from "../FeedbackTypeStep";
 
-const feedbackTypes = {
+export const feedbackTypes = {
   bug: {
     title: "Bug",
     image: {
@@ -29,17 +29,18 @@ const feedbackTypes = {
   },
 };
 
+export type FeedbackType = keyof typeof feedbackTypes;
+
+const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
+
 export const Form: React.FC = () => {
   return (
-    <div className="bg-zinc-700 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
-      <header>
-        <span className="text-xl leading-6">Give your feedback</span>
-        <CloseButton />
-      </header>
-
-      <div className="flex py-8 gap-2 w-full">
-        <button />
-      </div>
+    <div className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
+      {!feedbackType ? (
+        <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType} />
+      ) : (
+        <p>{feedbackType}</p>
+      )}
 
       <footer className="text-xs text-neutral-400">
         Made with ♥ by{" "}
