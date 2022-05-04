@@ -1,7 +1,6 @@
 import React from "react";
 
-import { ArrowLeft, Camera } from "phosphor-react";
-
+import { BackButton } from "../BackButton";
 import { CloseButton } from "../CloseButton";
 import { FeedbackType, feedbackTypes } from "../Form";
 
@@ -19,13 +18,7 @@ export const FeedbackContentStep: React.FC<Props> = ({
   return (
     <>
       <header>
-        <button
-          type="button"
-          className="top-5 left-5 absolute text-zinc-400 hover:text-zinc-100"
-          onClick={onResetFeedbackType}
-        >
-          <ArrowLeft weight="bold" className="w-4 h-4" />
-        </button>
+        <BackButton onClick={onResetFeedbackType} />
 
         <span className="text-xl leading-6 flex items-center gap-2">
           <img
@@ -35,6 +28,7 @@ export const FeedbackContentStep: React.FC<Props> = ({
           />
           {feedbackTypeData.title}
         </span>
+
         <CloseButton />
       </header>
 
