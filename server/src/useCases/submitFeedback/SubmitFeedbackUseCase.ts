@@ -1,8 +1,8 @@
-import { IMailAdapter } from "../adapters/IMailAdapter";
-import { ICreateFeedbackDTO } from "../dtos/ICreateFeedbackDTO";
-import { IFeedbacksRepository } from "../repositories/IFeedbacksRepository";
+import { IMailAdapter } from "../../adapters/IMailAdapter";
+import { ICreateFeedbackDTO } from "../../dtos/ICreateFeedbackDTO";
+import { IFeedbacksRepository } from "../../repositories/IFeedbacksRepository";
 
-export class CreateFeedbackUseCase {
+export class SubmitFeedbackUseCase {
   private feedbacksRepository: IFeedbacksRepository;
   private mailAdapter: IMailAdapter;
 
@@ -19,6 +19,18 @@ export class CreateFeedbackUseCase {
     comment,
     screenshot,
   }: ICreateFeedbackDTO): Promise<void> {
+    if (!type) {
+      throw new Error("Type is required");
+    }
+
+    if (!comment) {
+      throw new Error("Comment is required");
+    }
+
+    if (screenshot && !screenshot.startsWith("data:image/png;base64")) {
+      throw new Error("Invalid screenshot format");
+    }
+
     await this.feedbacksRepository.create({ type, comment, screenshot });
     await this.mailAdapter.sendMail({
       from: "Feedget Team <hi@feedget.com>",
