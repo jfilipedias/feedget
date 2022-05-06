@@ -1,15 +1,18 @@
+import bugImage from "../assets/bug.png";
+import ideaImage from "../assets/idea.png";
+import thoughtImage from "../assets/thought.png";
+
 export const feedbackTypes = {
-  'bug': {
-    title: 'Bug',
-    image: require('../assets/bug.png')
+  bug: {
+    title: "Bug",
+    image: bugImage,
   },
-  'idea': {
-    title: 'Idea',
-    image: require('../assets/idea.png'),
+  idea: {
+    title: "Idea",
+    image: ideaImage,
   },
-  'thought': {
-    title: 'Thought',
-    image: require('../assets/thought.png'),
+  thought: {
+    title: "Thought",
+    image: thoughtImage,
   },
 };
-
