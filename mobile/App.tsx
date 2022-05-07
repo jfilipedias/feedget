@@ -1,5 +1,6 @@
 import React from "react";
 import { View } from "react-native";
+import "react-native-gesture-handler";
 
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
