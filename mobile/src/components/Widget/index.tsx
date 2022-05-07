@@ -7,8 +7,12 @@ import { ChatTeardropDots } from "phosphor-react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import { theme } from "../../theme";
+import { feedbackTypes } from "../../utils/feedbackTypes";
+import { Form } from "../Form";
 import { Options } from "../Options";
 import { styles } from "./styles";
+
+export type FeedbackType = keyof typeof feedbackTypes;
 
 const Widget: React.FC = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -33,7 +37,7 @@ const Widget: React.FC = () => {
         backgroundStyle={styles.modal}
         handleIndicatorStyle={styles.indicator}
       >
-        <Options />
+        <Form feedbackType="bug" />
       </BottomSheet>
     </>
   );
