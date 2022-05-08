@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 
 import { Camera, Trash } from "phosphor-react-native";
 
@@ -23,9 +23,17 @@ export const ScreenshotButton: React.FC<Props> = ({
       onPress={screenshot ? onRemoveScreenshot : onTakeScreenshot}
     >
       {screenshot ? (
-        <Trash size={22} color={theme.colors.text_secondary} weight="fill" />
+        <View style={styles.trashContainer}>
+          <Image style={styles.image} source={{ uri: screenshot }} />
+          <Trash
+            size={20}
+            color={theme.colors.text_secondary}
+            weight="fill"
+            style={styles.trash}
+          />
+        </View>
       ) : (
-        <Camera />
+        <Camera size={24} color={theme.colors.text_primary} weight="bold" />
       )}
     </TouchableOpacity>
   );
