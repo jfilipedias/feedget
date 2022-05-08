@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { gestureHandlerRootHOC } from "react-native-gesture-handler";
 
@@ -10,15 +10,24 @@ import { theme } from "../../theme";
 import { feedbackTypes } from "../../utils/feedbackTypes";
 import { Form } from "../Form";
 import { Options } from "../Options";
+import { Success } from "../Success";
 import { styles } from "./styles";
 
 export type FeedbackType = keyof typeof feedbackTypes;
 
 const Widget: React.FC = () => {
+  const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
+  const [feedbackSent, setFeedbackSent] = useState(false);
+
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const handleOpen = () => {
     bottomSheetRef.current?.expand();
+  };
+
+  const handleFeedbackReset = () => {
+    setFeedbackType(null);
+    setFeedbackSent(false);
   };
 
   return (
@@ -37,7 +46,22 @@ const Widget: React.FC = () => {
         backgroundStyle={styles.modal}
         handleIndicatorStyle={styles.indicator}
       >
-        <Form feedbackType="bug" />
+        {feedbackSent ? (
+          <Success />
+        ) : (
+          // eslint-disable-next-line react/jsx-no-useless-fragment
+          <>
+            {feedbackType ? (
+              <Form
+                feedbackType={feedbackType}
+                onFeedbackReset={handleFeedbackReset}
+                onFeedbackSubmit={() => setFeedbackSent(true)}
+              />
+            ) : (
+              <Options onFeedbackTypeChanged={setFeedbackType} />
+            )}
+          </>
+        )}
       </BottomSheet>
     </>
   );
