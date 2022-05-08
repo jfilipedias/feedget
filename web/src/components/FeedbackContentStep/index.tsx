@@ -1,8 +1,10 @@
 import React, { FormEvent, useState } from "react";
 
+import { api } from "../../libs/api";
 import { BackButton } from "../BackButton";
 import { CloseButton } from "../CloseButton";
 import { FeedbackType, feedbackTypes } from "../Form";
+import { Loading } from "../Loading";
 import { ScreenshotButton } from "../ScreenshotButton";
 
 interface Props {
@@ -18,12 +20,23 @@ export const FeedbackContentStep: React.FC<Props> = ({
 }: Props) => {
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const feedbackTypeData = feedbackTypes[feedbackType];
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    console.log("submit", { feedbackType, comment, screenshot });
+
+    setIsSubmitting(true);
+
+    await api.post("/feedbacks", {
+      type: feedbackType,
+      comment,
+      screenshot,
+    });
+
+    setIsSubmitting(false);
+
     onSubmitFeedback();
   };
 
@@ -59,10 +72,10 @@ export const FeedbackContentStep: React.FC<Props> = ({
 
           <button
             type="submit"
-            disabled={comment.length === 0}
+            disabled={comment.length === 0 || isSubmitting}
             className="p-2 bg-brand-500 rounded-md border-transparent flex flex-1 items-center justify-center text-sm hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 focus:ring-offset-zinc-900 disabled:opacity-50 disabled:hover:bg-brand-500 transition-colors"
           >
-            Send Feedback
+            {isSubmitting ? <Loading /> : "Send Feedback"}
           </button>
         </footer>
       </form>
