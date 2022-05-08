@@ -47,7 +47,7 @@ const Widget: React.FC = () => {
         handleIndicatorStyle={styles.indicator}
       >
         {feedbackSent ? (
-          <Success />
+          <Success onSendAnotherFeedback={handleFeedbackReset} />
         ) : (
           // eslint-disable-next-line react/jsx-no-useless-fragment
           <>
